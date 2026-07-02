@@ -11,11 +11,11 @@ Monorepo: `frontend/`, `backend/`, `shared/` (FE + BE deployed separately, same 
 
 ## 2. Current status
 
-- **Phase:** Phase 0 — foundations. Monorepo skeleton now exists (npm workspaces: `frontend`, `backend`, `shared`; Node 22 pinned; hygiene files added).
+- **Phase:** Phase 0 — foundations. Monorepo skeleton exists (npm workspaces: `frontend`, `backend`, `shared`; Node 22 pinned; hygiene files). Phase 0 tooling now complete: strict TS base config + Biome + real root scripts.
 - **Current ticket:** none in progress — awaiting `/next-ticket`.
-- **Last completed ticket:** TICKET-001 (Initialize monorepo root & npm workspaces) — **DONE 2026-07-02**.
-- **Current branch:** ticket/001-monorepo-workspaces.
-- **Git note:** repo is being git-initialized by `ai-devops` as part of THIS `/done` (in progress now) — `git init` + branch `ticket/001-monorepo-workspaces`, then commit/push/PR.
+- **Last completed ticket:** TICKET-002 (Shared tooling: strict TS base config + Biome + real root scripts) — **DONE 2026-07-02**.
+- **Current branch:** ticket/002-shared-tooling-tsconfig-biome.
+- **Git note:** commit/push/PR handled by `ai-devops` as part of THIS `/done` (in progress now).
 
 ## 3. Tech stack (confirmed at intake)
 
@@ -46,12 +46,13 @@ Monorepo: `frontend/`, `backend/`, `shared/` (FE + BE deployed separately, same 
 - **ADR-008** Blog = build-time Markdown pipeline (no DB, no CRUD).
 - **ADR-009** API = REST resource routes + shared Zod validation + standard error envelope (no Hono RPC/`hc`).
 - **ADR-010** Theming = build-time CSS custom-property token files + runtime `data-theme` switch (light default + dark).
+- **ADR-011** Biome as the single formatter + linter (replaces ESLint + Prettier); reconciles the historical ROADMAP Phase 0 line.
 
 ## 6. Canonical docs (source of truth)
 
 - `docs/SPEC.md` — requirements (FR-*, NFR-*, OQ-*).
 - `docs/ARCHITECTURE.md` — system design (§11 = open confirmations).
-- `docs/DECISIONS.md` — ADR-001..010.
+- `docs/DECISIONS.md` — ADR-001..011.
 - `docs/ROADMAP.md` — 19 phases (0–18), ~92 prospective ticket-sized steps, backend-first.
 - `docs/WORKFLOW.md` — the per-ticket feature-dev workflow.
 - `docs/tickets/INDEX.md` — ticket status tracker (empty; no tickets yet).
@@ -76,10 +77,11 @@ Baked into the roadmap as the assumed path; overturning any revises the affected
 
 - Intake (SPEC/ARCHITECTURE/DECISIONS/ROADMAP) is complete.
 - **TICKET-001** — monorepo root + npm workspaces (frontend/backend/shared), Node 22 pins, hygiene files. DONE 2026-07-02.
+- **TICKET-002** — strict `tsconfig.base.json` + per-workspace tsconfigs, Biome 1.9.4 (format + lint + organizeImports), TypeScript 5.9.3, real root scripts (format/lint/typecheck). DONE 2026-07-02.
 
 ## 10. What's next
 
-- **Next: `/next-ticket` → TICKET-002:** TypeScript base config (`tsconfig.base.json` + per-workspace tsconfigs) + Biome (formatter/linter) install & config, plus real root scripts.
+- **Next: `/next-ticket` → first Phase 1 step:** backend base — Wrangler/Worker + Hono + config scaffolding (per ROADMAP Phase 1).
 - Consider confirming the §8 open items (esp. domains, scale default, shared-package reading) as later phases approach.
 
 ## 11. Gotchas / things the agent must remember
