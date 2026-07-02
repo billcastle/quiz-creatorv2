@@ -1,6 +1,6 @@
 # ROADMAP.md — Phased Build Plan
 
-> Status: **LIVING PLAN.** Derived from `docs/SPEC.md` (what/why) and `docs/ARCHITECTURE.md` (how), with decisions of record in `docs/DECISIONS.md` (ADR-001..010).
+> Status: **LIVING PLAN.** Derived from `docs/SPEC.md` (what/why) and `docs/ARCHITECTURE.md` (how), with decisions of record in `docs/DECISIONS.md` (ADR-001..011).
 > This roadmap lists **prospective, ticket-sized steps** per phase. It does **not** assign ticket IDs and does **not** create tickets. Tickets are created **one at a time** via `/next-ticket` (CLAUDE.md Golden Rule 1).
 > Last updated: 2026-07-02.
 
@@ -22,7 +22,7 @@
 
 Steps:
 - [ ] Initialize repo root: `package.json` with workspaces (`frontend`, `backend`, `shared`), `.gitignore`, `.editorconfig`, Node/PM version pin.
-- [ ] Add root TypeScript config (strict-mode base tsconfig) + shared lint/format config (ESLint + Prettier), scripts placeholders.
+- [ ] Add root TypeScript config (strict-mode base tsconfig) + shared lint/format config (**Biome** — single formatter + linter; see ADR-011, replaces the earlier ESLint + Prettier note), scripts placeholders.
 - [ ] Scaffold `shared/` workspace (`@app/shared`): `package.json` (type: module, exports src), empty `src/index.ts`, tsconfig — no schemas yet.
 - [ ] Seed `shared/src/enums.ts`: Role, QuestionnaireType, QuestionType, Visibility, GradingStatus enums (Zod + inferred types).
 - [ ] Add `docs/CONTEXT.md` skeleton (project state file for context recovery) and confirm ticket `_TEMPLATE.md`/`INDEX.md` are ready.
