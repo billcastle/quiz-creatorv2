@@ -4,7 +4,7 @@
 - **Created:** 2026-07-02
 - **Completed:** 2026-07-02
 - **Branch:** ticket/001-monorepo-workspaces
-- **PR:** — (pending PR)
+- **PR:** https://github.com/billcastle/quiz-creatorv2/pull/1
 - **Area:** repo
 - **Depends on:** none (first ticket)
 
