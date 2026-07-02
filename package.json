@@ -1,0 +1,22 @@
+{
+  "name": "questionnaire-creator",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Questionnaire creator web app (quizzes + surveys) — monorepo root.",
+  "workspaces": [
+    "frontend",
+    "backend",
+    "shared"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "packageManager": "npm@10.9.4",
+  "scripts": {
+    "lint": "echo \"lint configured in TICKET-002\" && exit 0",
+    "typecheck": "echo \"typecheck configured in TICKET-002\" && exit 0",
+    "build": "npm run build --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present"
+  }
+}

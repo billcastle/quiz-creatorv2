@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "deny": [
+      "Bash(git push --force:*)",
+      "Bash(rm -rf /*)",
+      "Read(prompts/**)",
+      "Read(archive/**)"
+    ]
+  },
+  "model": "claude-opus-4-7",
+  "enabledPlugins": {
+    "pr-review-toolkit@claude-plugins-official": true
+  }
+}
