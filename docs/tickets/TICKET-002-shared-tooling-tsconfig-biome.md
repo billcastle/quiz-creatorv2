@@ -4,7 +4,7 @@
 - **Created:** 2026-07-02
 - **Completed:** 2026-07-02
 - **Branch:** ticket/002-shared-tooling-tsconfig-biome
-- **PR:** — (pending PR)
+- **PR:** https://github.com/billcastle/quiz-creatorv2/pull/2
 - **Area:** repo
 - **Depends on:** TICKET-001 (DONE — monorepo root & npm workspaces)
 
