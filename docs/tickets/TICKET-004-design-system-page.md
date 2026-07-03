@@ -3,7 +3,7 @@
 - **Status:** DONE <!-- CREATED | IN PROGRESS | QA | AWAITING APPROVAL | DONE -->
 - **Created:** 2026-07-03
 - **Completed:** 2026-07-03
-- **PR:** — (pending PR)
+- **PR:** https://github.com/billcastle/quiz-creatorv2/pull/4
 - **Branch:** ticket/004-design-system-page
 - **Area:** frontend
 - **Depends on:** TICKET-003 (DONE — frontend foundation: Vite 8 + React 19, Tailwind v4 via `@tailwindcss/vite`, shadcn initialized [components.json, `cn`, Button, `@/*` alias], Inter font, light/dark token files + `.dark` toggle in `lib/theme.ts` [no switcher UI], Tanstack Router file-based with `__root` + `index` + minimal `AppLayout` shell and a documented `/design-system` slot, Vitest + RTL harness)
