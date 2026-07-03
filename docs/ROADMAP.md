@@ -64,13 +64,14 @@ Steps:
 **Goal:** The full D1 app schema, first migration applied locally, and the seed for categories/subcategories + first admin.
 
 Steps:
-- [ ] Add `drizzle.config.ts` + `db/client.ts` (drizzle(d1) factory); establish migration workflow (`wrangler d1 migrations`).
-- [ ] Define core app tables in `db/schema.ts`: `questionnaires`, `questionnaire_versions` (JSON snapshot), with D1 conventions (integer booleans/timestamps, JSON-as-TEXT, text UUIDv7 PKs, indexes).
-- [ ] Define `responses` + `answers` tables (version-bound response, snapshot-question-id references, grading status).
-- [ ] Define `likes` (composite PK dedup) + `categories`/`subcategories` tables and their indexes.
-- [ ] Generate & apply the **first migration** to local miniflare D1; add a schema smoke test.
-- [ ] Add `db/seed.ts`: seeded categories + subcategories (fixed list) and the env-configured first-admin seed; wire a seed script.
+- [x] Add `drizzle.config.ts` + `db/client.ts` (drizzle(d1) factory); establish migration workflow (`wrangler d1 migrations`). — TICKET-008 (per-request `getDb(db)`, no global; also flipped on the real `wrangler.toml` D1 binding + `[env.preview]`/`[env.production]` + `.dev.vars.example`, the TICKET-007 carry-over).
+- [x] Define core app tables in `db/schema.ts`: `questionnaires`, `questionnaire_versions` (JSON snapshot), with D1 conventions (integer booleans/timestamps, JSON-as-TEXT, text UUIDv7 PKs, indexes). — TICKET-008 (`newId()` UUIDv7 via `uuidv7`).
+- [x] Define `responses` + `answers` tables (version-bound response, snapshot-question-id references, grading status). — TICKET-008.
+- [x] Define `likes` (composite PK dedup) + `categories`/`subcategories` tables and their indexes. — TICKET-008.
+- [x] Generate & apply the **first migration** to local miniflare D1; add a schema smoke test. — TICKET-008 (`0000_even_mephisto.sql`; smoke test runs in workerd, harness migrates a test D1 from `backend/migrations/`).
+- [~] Add `db/seed.ts`: seeded categories + subcategories (fixed list) and the env-configured first-admin seed; wire a seed script. — TICKET-008 delivered the idempotent **categories + subcategories** seed (deterministic fixed ids + `onConflictDoNothing`). The **first-admin seed is DEFERRED to Phase 3** (needs the better-auth `user` table).
 
+**Status:** Phase 2 delivered by **TICKET-008** (DONE 2026-07-03 — reviewed APPROVE-WITH-NITS, QA PASSED 14/14). **Carried forward:** first-admin seed → Phase 3 (with the user-FK follow-up migration on `owner_id`/`created_by`/`respondent_user_id`/`likes.user_id`); R2 binding → Phase 4; real preview/prod D1 `database_id`s → Phase 18; canonical category taxonomy → ai-ba (current seed reuses the TICKET-005 placeholder list).
 **Dependencies:** Phase 1 (drizzle client factory, env, Wrangler bindings).
 **Acceptance signal:** `wrangler d1 migrations apply --local` succeeds; seed populates categories + first admin; a Vitest test opens a test D1 and reads seeded rows.
 **Maps to:** ARCHITECTURE §3 (all), §2.1(db/); ADR-002, ADR-004; FR-30/33/34; NFR-8.

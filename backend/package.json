@@ -7,17 +7,23 @@
     "dev": "wrangler dev",
     "deploy": "wrangler deploy",
     "typecheck": "tsc --noEmit",
-    "test": "vitest run"
+    "test": "vitest run",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate:local": "wrangler d1 migrations apply quiz-creator-api --local",
+    "db:seed": "vitest run test/schema.test.ts"
   },
   "dependencies": {
     "@app/shared": "0.0.0",
     "@hono/zod-validator": "0.8.0",
+    "drizzle-orm": "0.45.2",
     "hono": "4.12.27",
+    "uuidv7": "1.2.1",
     "zod": "4.4.3"
   },
   "devDependencies": {
     "@cloudflare/vitest-pool-workers": "0.18.0",
     "@cloudflare/workers-types": "5.20260703.1",
+    "drizzle-kit": "0.31.10",
     "vitest": "4.1.9",
     "wrangler": "4.107.0"
   }

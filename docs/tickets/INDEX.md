@@ -9,5 +9,6 @@
 | TICKET-005 | Frontend app shell: layout split + collapsible sidebar + header with theme switcher | frontend | DONE (2026-07-03) | ticket/005-app-shell | [#5](https://github.com/billcastle/quiz-creatorv2/pull/5) |
 | TICKET-006 | Backend Worker + Hono skeleton (health route) | backend | DONE (2026-07-03) | ticket/006-backend-worker-hono-skeleton | [#6](https://github.com/billcastle/quiz-creatorv2/pull/6) |
 | TICKET-007 | Backend base: Hono app factory, middleware stack, error envelope & Workers-runtime test harness | backend | DONE (2026-07-03) | ticket/007-backend-base-app-middleware-error-envelope | [#7](https://github.com/billcastle/quiz-creatorv2/pull/7) |
+| TICKET-008 | Data layer: Drizzle schema, first migration & category/subcategory seed | backend | DONE (2026-07-03) | ticket/008-data-layer-drizzle-schema-migration-seed | [#8](https://github.com/billcastle/quiz-creatorv2/pull/8) |
 
 **Statuses:** CREATED → IN PROGRESS → QA → AWAITING APPROVAL → DONE
