@@ -4,6 +4,21 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Questionnaire Creator</title>
+    <!--
+      Anti-FOUC: apply the persisted theme before first paint so a dark-mode
+      user never sees a light flash. Must stay in sync with src/lib/theme.ts
+      (same "qc-theme" key + `.dark` class mechanism). Guarded so a blocked
+      localStorage (e.g. privacy mode) can never break page load.
+    -->
+    <script>
+      (function () {
+        try {
+          if (localStorage.getItem("qc-theme") === "dark") {
+            document.documentElement.classList.add("dark");
+          }
+        } catch (_) {}
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>
