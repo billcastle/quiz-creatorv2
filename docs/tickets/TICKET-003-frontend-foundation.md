@@ -4,7 +4,7 @@
 - **Created:** 2026-07-03
 - **Completed:** 2026-07-03
 - **Branch:** ticket/003-frontend-foundation
-- **PR:** —
+- **PR:** https://github.com/billcastle/quiz-creatorv2/pull/3
 - **Area:** frontend
 - **Depends on:** TICKET-001 (DONE — monorepo root & npm workspaces), TICKET-002 (DONE — strict TS base config + Biome + root scripts)
 
