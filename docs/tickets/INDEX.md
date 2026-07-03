@@ -8,6 +8,6 @@
 | TICKET-004 | Design System page: /design-system route + token & component showcase | frontend | DONE (2026-07-03) | ticket/004-design-system-page | [#4](https://github.com/billcastle/quiz-creatorv2/pull/4) |
 | TICKET-005 | Frontend app shell: layout split + collapsible sidebar + header with theme switcher | frontend | DONE (2026-07-03) | ticket/005-app-shell | [#5](https://github.com/billcastle/quiz-creatorv2/pull/5) |
 | TICKET-006 | Backend Worker + Hono skeleton (health route) | backend | DONE (2026-07-03) | ticket/006-backend-worker-hono-skeleton | [#6](https://github.com/billcastle/quiz-creatorv2/pull/6) |
-| TICKET-007 | Backend base: Hono app factory, middleware stack, error envelope & Workers-runtime test harness | backend | DONE (2026-07-03) | ticket/007-backend-base-app-middleware-error-envelope | — |
+| TICKET-007 | Backend base: Hono app factory, middleware stack, error envelope & Workers-runtime test harness | backend | DONE (2026-07-03) | ticket/007-backend-base-app-middleware-error-envelope | [#7](https://github.com/billcastle/quiz-creatorv2/pull/7) |
 
 **Statuses:** CREATED → IN PROGRESS → QA → AWAITING APPROVAL → DONE

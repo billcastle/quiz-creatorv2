@@ -4,7 +4,7 @@
 - **Created:** 2026-07-03
 - **Completed:** 2026-07-03
 - **Branch:** ticket/007-backend-base-app-middleware-error-envelope
-- **PR:** —
+- **PR:** https://github.com/billcastle/quiz-creatorv2/pull/7
 - **Area:** backend (+ `shared/` for the error-envelope contract)
 - **Depends on:** TICKET-006 (DONE)
 
