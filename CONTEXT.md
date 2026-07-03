@@ -11,15 +11,15 @@ Monorepo: `frontend/`, `backend/`, `shared/` (FE + BE deployed separately, same 
 
 ## 2. Current status
 
-- **Phase:** Phase 0 done (monorepo skeleton + strict TS base config + Biome + root scripts). **PIVOT:** frontend foundation pulled earlier than the backend-first roadmap so the `/design-system` page can be built next; the **backend Worker skeleton is DEFERRED** (to be re-created via `/next-ticket` later).
+- **Phase:** Phase 0 done (monorepo skeleton + strict TS base config + Biome + root scripts); frontend foundation + design system + app shell landed (TICKET-003..005); backend Phase 1 now started with the Worker skeleton.
 - **Current ticket:** none in progress — awaiting `/next-ticket`.
-- **Last completed ticket:** TICKET-005 (app shell) — **DONE 2026-07-03**.
-- **Current branch:** ticket/005-app-shell (commit/push/PR by ai-devops now).
+- **Last completed ticket:** TICKET-006 (backend Worker skeleton) — **DONE 2026-07-03**.
+- **Current branch:** ticket/006-backend-worker-hono-skeleton (commit/push/PR by ai-devops now).
 
 ## 3. Tech stack (confirmed at intake)
 
 - **Frontend:** Vite + React + TypeScript SPA on Cloudflare Pages (`app.<domain>`). Tanstack Router + Tanstack Query, Tanstack Form. Zustand for UI/theme/builder/quiz-taking state. Tailwind + shadcn/ui, base font Inter. tiptap editor (character-count, filehandler, color). **Foundation in place (TICKET-003):** Vite 8 + React 19, Tailwind v4 via `@tailwindcss/vite`, shadcn (`.dark` class theme mechanism), Inter via `@fontsource/inter`, Tanstack Router (file-based, generated `routeTree.gen.ts`), Vitest + RTL smoke test. **Design system exists (TICKET-004, DONE):** `/design-system` route with Colors / Typography / Components sections (12 shadcn primitives: Button, Input, Label, Textarea, Select, Checkbox, RadioGroup, Switch, Card, Tabs, Badge, Separator) and an anti-FOUC inline script in `index.html`; `lucide-react` added for icons. **Persistent app shell exists (TICKET-005, awaiting approval):** `_app`/`_bare` pathless-layout split (flat dotted route files). `AppLayout` = collapsible custom sidebar (nav links + static Categories section + minimize-to-icons rail, collapsed state persisted via Zustand `ui` store, key `qc-ui`) + `Header` (light/dark toggle + `Select` custom-theme dropdown driven by `themes/manifest.ts`). `BareLayout` = chrome-free slot for future auth/answering (with a temporary `/placeholder` route to be removed when auth lands). `lib/theme.ts` generalized for named themes via `[data-theme]` on `<html>` (still `.dark` for the dark built-in), with the anti-FOUC inline script in lockstep. `zustand@5.0.14` (exact) added. The TICKET-004 in-page demo theme toggle was removed — the header is now the canonical theme control.
-- **Backend:** Cloudflare Worker running Hono (`api.<domain>`). REST routes validated with `@hono/zod-validator`.
+- **Backend:** Cloudflare Worker running Hono (`api.<domain>`). REST routes validated with `@hono/zod-validator`. **Runnable skeleton in place (TICKET-006, awaiting approval):** Hono app at `backend/src/index.ts` with `GET /api/health` → `{ status: "ok" }` and `export default app`; `backend/wrangler.toml` (`name = quiz-creator-api`, `compatibility_date = 2026-07-01`, `compatibility_flags = ["nodejs_compat"]`, no bindings, no env sections); backend `tsconfig.json` upgraded (`files: []` guard dropped, `types: ["@cloudflare/workers-types"]`, `lib: ["ESNext"]`, no DOM); a plain-Vitest offline smoke test (`backend/test/health.test.ts` via `app.request`). Deps (exact): `hono@4.12.27`, `wrangler@4.107.0`, `@cloudflare/workers-types@5.20260703.1`, `vitest@4.1.9`.
 - **Database:** Cloudflare D1 (SQLite) — the ONLY datastore, app data + auth/session tables. Drizzle ORM (D1 driver).
 - **Auth:** better-auth in the Worker (Drizzle/D1 adapter) with `anonymous` + `username` plugins; parent-domain cookies.
 - **Object store:** Cloudflare R2 (tiptap images + avatars), served via Worker proxy route.
@@ -54,7 +54,7 @@ Monorepo: `frontend/`, `backend/`, `shared/` (FE + BE deployed separately, same 
 - `docs/DECISIONS.md` — ADR-001..011.
 - `docs/ROADMAP.md` — 19 phases (0–18), ~92 prospective ticket-sized steps, backend-first.
 - `docs/WORKFLOW.md` — the per-ticket feature-dev workflow.
-- `docs/tickets/INDEX.md` — ticket status tracker (TICKET-001..005 DONE).
+- `docs/tickets/INDEX.md` — ticket status tracker (TICKET-001..006 DONE).
 
 ## 7. Roadmap summary
 
@@ -79,15 +79,18 @@ Baked into the roadmap as the assumed path; overturning any revises the affected
 - **TICKET-002** — strict `tsconfig.base.json` + per-workspace tsconfigs, Biome 1.9.4 (format + lint + organizeImports), TypeScript 5.9.3, real root scripts (format/lint/typecheck). DONE 2026-07-02 (PR #2).
 - **TICKET-003** — frontend foundation (Vite 8 + React 19, Tailwind v4, shadcn init + Button, Inter via `@fontsource`, light/dark theme tokens + `.dark` mechanism, Tanstack Router file-based + AppLayout shell, Vitest+RTL smoke test). DONE 2026-07-03 (PR #3).
 - **TICKET-004** — design-system page (`/design-system`): Colors / Typography / Components (12 shadcn primitives), in-page theme toggle, anti-FOUC script, lucide-react icons; RadioGroup + Checkbox multi-select styled as answer cards (questionnaire answer-option pattern). DONE 2026-07-03 (PR #4).
-- **TICKET-005** — app shell: `_app`/`_bare` layout split, collapsible sidebar (Zustand ui store `qc-ui`), header theme switcher (light/dark + `Select` custom-theme dropdown), `lib/theme.ts` named-theme generalization + anti-FOUC lockstep, dark theme retuned for control visibility. DONE 2026-07-03.
+- **TICKET-005** — app shell: `_app`/`_bare` layout split, collapsible sidebar (Zustand ui store `qc-ui`), header theme switcher (light/dark + `Select` custom-theme dropdown), `lib/theme.ts` named-theme generalization + anti-FOUC lockstep, dark theme retuned for control visibility. DONE 2026-07-03 (PR #5).
+- **TICKET-006** — backend Worker + Hono skeleton: `GET /api/health` → `{ status: "ok" }`, `wrangler.toml` (no bindings), backend `tsconfig` + `@cloudflare/workers-types`, offline Vitest smoke test. DONE 2026-07-03.
 
 ## 10. What's next
 
+- **TICKET-006 PR** — ai-devops is committing/pushing/opening the PR now; add the PR link to INDEX (and here) once available.
 - **`/next-ticket`** — candidate next steps (keep all open):
-  1. **Auth pages** (`/auth/sign-in`, `/auth/sign-up`) under `_bare` — needs better-auth, so likely pairs with the backend Worker skeleton.
-  2. **Backend Worker skeleton** (Wrangler/Worker + Hono + config) — deferred by the pivot.
-  3. **Design-system batch 2** — deferred overlay/portal primitives (Dialog, Tooltip, DropdownMenu, Popover, Sheet, Toast, Slider, Progress, Accordion, Avatar, Command, Table, Skeleton).
-  4. **First feature page** (Explore / builder).
+  1. **Backend Phase 1 continues** — env/config + middleware stack (CORS, error-envelope, request-id) per ARCHITECTURE §2.
+  2. **Workers-pool test harness** — full `@cloudflare/vitest-pool-workers`/miniflare (its own ticket).
+  3. **D1/Drizzle schema** (Phase 2).
+  4. **Auth** (Phase 3, better-auth) — pairs with auth pages under `_bare`.
+  5. **A frontend feature page** (Explore / builder), or **design-system batch 2** (deferred overlay/portal primitives: Dialog, Tooltip, DropdownMenu, Popover, Sheet, Toast, Slider, Progress, Accordion, Avatar, Command, Table, Skeleton).
 - **Open follow-up:** decide the canonical form-field label association pattern (nesting vs `htmlFor`+`id`) before builder/forms tickets copy it (two styles currently coexist on the showcase page).
 - Consider confirming the §8 open items (esp. domains, scale default, shared-package reading) as later phases approach.
 
