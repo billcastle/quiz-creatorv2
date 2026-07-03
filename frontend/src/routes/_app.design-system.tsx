@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { type ReactElement, useEffect, useState } from "react";
+import type { ReactElement } from "react";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -25,37 +25,16 @@ import { Separator } from "@/components/ui/separator";
 import { Switch } from "@/components/ui/switch";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
-import { applyTheme, getStoredTheme } from "@/lib/theme";
-import type { ThemeKey } from "@/themes/manifest";
 
 // The /design-system gallery (ARCHITECTURE §7.4): a dev/design aid that renders
 // the ADR-010 color tokens, the Inter type scale, and the first batch of
 // shadcn/ui primitives so the team can visually QA them across light/dark.
-// It renders through the existing AppLayout shell via the root <Outlet/>.
-export const Route = createFileRoute("/design-system")({
+// It renders through the AppLayout shell (nested under the pathless `_app`
+// layout route). The theme is now driven by the canonical header switcher
+// (TICKET-005) — the TICKET-004 in-page demo toggle was removed.
+export const Route = createFileRoute("/_app/design-system")({
   component: DesignSystemPage,
 });
-
-// --- Theme demo control -----------------------------------------------------
-
-// Local hook wiring the in-page toggle to the existing lib/theme.ts mechanism
-// (.dark class + qc-theme localStorage). This is a DEMO control for the gallery
-// only — the persistent header switcher (FR-39) lands in the FE-shell ticket.
-function useThemeToggle(): [ThemeKey, (next: ThemeKey) => void] {
-  const [theme, setTheme] = useState<ThemeKey>(getStoredTheme);
-
-  // Keep local state in sync if the stored theme changes elsewhere on mount.
-  useEffect(() => {
-    setTheme(getStoredTheme());
-  }, []);
-
-  function set(next: ThemeKey): void {
-    applyTheme(next);
-    setTheme(next);
-  }
-
-  return [theme, set];
-}
 
 // --- Color tokens (Section 1) -----------------------------------------------
 
@@ -231,33 +210,20 @@ function Showcase({
 // --- Page -------------------------------------------------------------------
 
 function DesignSystemPage(): ReactElement {
-  const [theme, setTheme] = useThemeToggle();
-  const isDark = theme === "dark";
-
   return (
     <div className="flex flex-col gap-12">
-      {/* Header + in-page theme demo toggle */}
-      <header className="flex flex-wrap items-end justify-between gap-4">
-        <div className="flex flex-col gap-1">
-          <span className="font-mono text-muted-foreground text-xs tracking-widest">
-            DESIGN SYSTEM
-          </span>
-          <h1 className="font-semibold text-3xl tracking-tight">
-            Tokens, type &amp; components
-          </h1>
-          <p className="max-w-prose text-muted-foreground text-sm">
-            A living reference for the questionnaire creator. Flip the theme to
-            check every token and component in light and dark.
-          </p>
-        </div>
-        <Label className="cursor-pointer gap-2">
-          <span className="text-sm">Dark</span>
-          <Switch
-            checked={isDark}
-            onCheckedChange={(next) => setTheme(next ? "dark" : "light")}
-            aria-label="Toggle dark theme"
-          />
-        </Label>
+      {/* Header. The theme is controlled by the canonical header switcher. */}
+      <header className="flex flex-col gap-1">
+        <span className="font-mono text-muted-foreground text-xs tracking-widest">
+          DESIGN SYSTEM
+        </span>
+        <h1 className="font-semibold text-3xl tracking-tight">
+          Tokens, type &amp; components
+        </h1>
+        <p className="max-w-prose text-muted-foreground text-sm">
+          A living reference for the questionnaire creator. Use the header theme
+          switcher to check every token and component in light and dark.
+        </p>
       </header>
 
       <Separator />

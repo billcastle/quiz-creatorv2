@@ -18,6 +18,9 @@ coverage/
 # Tanstack Router generated route tree (codegen output, not hand-authored)
 routeTree.gen.ts
 
+# Tanstack Router plugin temp/cache dir
+.tanstack/
+
 # Cloudflare Wrangler local state & secrets
 .wrangler/
 .dev.vars

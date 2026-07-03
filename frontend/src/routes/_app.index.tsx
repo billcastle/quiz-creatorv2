@@ -2,9 +2,9 @@ import { Button } from "@/components/ui/button";
 import { createFileRoute } from "@tanstack/react-router";
 import type { ReactElement } from "react";
 
-// Minimal index route (/). Renders through the AppLayout shell and uses one
-// Tailwind-styled shadcn Button to prove the styling + alias pipeline works.
-export const Route = createFileRoute("/")({
+// Index route (/). Nested under the pathless `_app` layout so it renders inside
+// the AppLayout shell (sidebar + header). URL is unchanged (`/`).
+export const Route = createFileRoute("/_app/")({
   component: IndexPage,
 });
 

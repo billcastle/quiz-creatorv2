@@ -5,16 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Questionnaire Creator</title>
     <!--
-      Anti-FOUC: apply the persisted theme before first paint so a dark-mode
-      user never sees a light flash. Must stay in sync with src/lib/theme.ts
-      (same "qc-theme" key + `.dark` class mechanism). Guarded so a blocked
-      localStorage (e.g. privacy mode) can never break page load.
+      Anti-FOUC: apply the persisted theme before first paint so a themed user
+      never sees a light flash. MUST stay in lockstep with src/lib/theme.ts
+      (same "qc-theme" key + same mechanism): the built-in dark member toggles
+      the `.dark` class, and any named theme (other than light/dark) is applied
+      via a `data-theme` attribute. Guarded so a blocked localStorage (e.g.
+      privacy mode) can never break page load. Dependency-free.
     -->
     <script>
       (function () {
         try {
-          if (localStorage.getItem("qc-theme") === "dark") {
-            document.documentElement.classList.add("dark");
+          var t = localStorage.getItem("qc-theme");
+          var root = document.documentElement;
+          if (t === "dark") root.classList.add("dark");
+          if (t && t !== "light" && t !== "dark") {
+            root.setAttribute("data-theme", t);
           }
         } catch (_) {}
       })();
