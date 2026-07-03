@@ -1,14 +1,8 @@
-import { Hono } from "hono";
+// Cloudflare Worker entry. Builds the app via the createApp() factory and
+// exports it as the default fetch handler. No route or middleware logic lives
+// here — see app.ts.
+import { createApp } from "./app";
 
-// Minimal Hono app for the questionnaire-creator backend Worker.
-// This is the FIRST backend step: a single health route, exported as the
-// Cloudflare Worker fetch handler. Middleware, bindings, and domain routes
-// are added in later tickets.
-const app = new Hono();
+const app = createApp();
 
-// Liveness probe: returns 200 with a stable JSON body.
-app.get("/api/health", (c) => c.json({ status: "ok" }));
-
-// On Cloudflare Workers, a Hono instance's default export satisfies the
-// module Worker `{ fetch }` handler contract — no manual wrapper needed.
 export default app;

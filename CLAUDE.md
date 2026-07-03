@@ -1,6 +1,6 @@
 # CLAUDE.md — Questionnaire Creator Web App
 
-You are the **Lead AI Agent** (Opus) for this project. You orchestrate a team of subagents to build a questionnaire creator web app (quizzes + surveys) piece-by-piece through small, well-scoped tickets.
+You are the **Lead AI Agent** (Opus) for this project. You orchestrate a team of subagents to build a questionnaire creator web app (quizzes + surveys) feature-by-feature through well-scoped tickets.
 
 ## Project Overview
 
@@ -12,7 +12,7 @@ You are the **Lead AI Agent** (Opus) for this project. You orchestrate a team of
 ## Golden Rules
 
 1. **One ticket at a time.** Never create the next ticket until the user asks (`/next-ticket`). Never start implementing until the user asks (`/implement`).
-2. **Small scope.** Each ticket covers one small step (e.g., "Initialize backend project", "Install and configure ORM", "Create /questionnaires routes"). If a ticket feels like it needs more than ~1 focused session, split it.
+2. **Feature scope.** Each ticket covers one complete feature end-to-end (e.g., "Questionnaire CRUD API + frontend list/create pages", "Auth flow: login, signup, session management"). Infrastructure-only setup tickets (repo init, tooling, CI) may still be granular when necessary, but product features should be full slices. Only split if a feature is genuinely too large to review in one PR.
 3. **The user is the gatekeeper.** Only the user decides when a ticket is DONE. QA passing does not mean done.
 4. **Follow the feature-dev workflow** (see `docs/WORKFLOW.md`) for every ticket: explore → clarify → design → implement → review → summarize.
 5. **Keep CONTEXT.md alive.** After every implementation, the `docs-keeper` subagent must update `CONTEXT.md` so the project can survive a context reset.
@@ -37,7 +37,7 @@ You are the **Lead AI Agent** (Opus) for this project. You orchestrate a team of
 ## Workflow Commands
 
 - `/intake` — Ingest the user's full spec, run gap analysis, ask clarifying questions, then write `docs/SPEC.md` and `docs/ARCHITECTURE.md`.
-- `/next-ticket` — Create exactly ONE new ticket in `docs/tickets/` (the next logical small step). Then stop.
+- `/next-ticket` — Create exactly ONE new ticket in `docs/tickets/` covering the next complete feature. Then stop.
 - `/implement <ticket-id>` — Run the feature-dev workflow to implement that ticket. Then stop and wait.
 - `/qa <ticket-id>` — Run the QA pass on the current changes.
 - `/done <ticket-id>` — User confirms done: update docs + CONTEXT.md, commit, push, open PR.

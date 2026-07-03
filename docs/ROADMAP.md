@@ -46,12 +46,13 @@ Steps:
 **Goal:** A running Worker exposing a Hono app with the middleware stack, D1 & R2 bindings, env validation, and the error envelope — no domain routes yet.
 
 Steps:
-- [ ] Initialize `backend/`: Wrangler project, `wrangler.toml` with D1 + R2 bindings and `[env.preview]`/`[env.production]` sections, `.dev.vars` (gitignored) template.
-- [ ] Scaffold Hono app: `index.ts` (fetch export), `app.ts` (`createApp`), `env.ts` (Zod-validated Env/Bindings type).
-- [ ] Add middleware stack skeleton: CORS (origin allowlist + credentials), request-id/logging, error-handler (`onError`).
-- [ ] Add `lib/error.ts` (AppError + envelope) and `middleware/validate.ts` (`@hono/zod-validator` helpers) wired to the `shared` error-envelope type.
-- [ ] Add a `GET /api/health` route + a first Vitest route test via `@cloudflare/vitest-pool-workers` (test harness bootstrap).
+- [~] Initialize `backend/`: Wrangler project, `wrangler.toml` — Worker + minimal `wrangler.toml` done (TICKET-006); the D1 + R2 bindings, `[env.preview]`/`[env.production]` sections, and `.dev.vars` template were **DEFERRED to Phase 2** (only `env.ts` types anticipate them). `env.ts` authored in TICKET-007.
+- [x] Scaffold Hono app: `index.ts` (fetch export), `app.ts` (`createApp`), `env.ts` (Zod-validated Env/Bindings type). — TICKET-007.
+- [x] Add middleware stack skeleton: CORS (origin allowlist + credentials), request-id/logging, error-handler (`onError`). — TICKET-007.
+- [x] Add `lib/error.ts` (AppError + envelope) and `middleware/validate.ts` (`@hono/zod-validator` helpers) wired to the `shared` error-envelope type. — TICKET-007.
+- [x] Add a `GET /api/health` route (TICKET-006) + a Vitest route test via `@cloudflare/vitest-pool-workers` (test harness bootstrap; TICKET-007 migrated the harness to workerd/miniflare).
 
+**Status:** Backend-base delivered by **TICKET-006 + TICKET-007** (both DONE 2026-07-03). Remaining item — real `wrangler.toml` D1/R2 bindings + `[env.*]` sections + `.dev.vars` — carried into Phase 2.
 **Dependencies:** Phase 0 (workspaces, shared enums, error-envelope type).
 **Acceptance signal:** `wrangler dev` serves the Worker locally; `/api/health` returns 200; CORS + error envelope verified by a passing Vitest route test.
 **Maps to:** ARCHITECTURE §1.2, §1.3, §2.1, §2.2, §6.3; ADR-002, ADR-009; NFR-2, NFR-7, NFR-10, NFR-11.

@@ -13,7 +13,7 @@ Based on Anthropic's **feature-dev** plugin workflow (discovery → codebase exp
         │  (user: "/next-ticket")
         ▼
 ┌─────────────────────────────────────────────────────────────┐
-│ 1. /next-ticket ai-team-producer creates ONE small ticket    │
+│ 1. /next-ticket ai-team-producer creates ONE feature ticket  │
 │                 in docs/tickets/ → user reviews it           │
 └─────────────────────────────────────────────────────────────┘
         │  (user: "/implement TICKET-###")
@@ -52,9 +52,13 @@ Based on Anthropic's **feature-dev** plugin workflow (discovery → codebase exp
 
 ## Ticket sizing guide
 
-Good ticket sizes (one ticket each): initialize backend project · initialize frontend project · install & configure packages · set up database connection · create one migration · create one route group · build one page skeleton · wire one form · add auth middleware · set up CI for one app.
+Good ticket sizes (one ticket each): "Questionnaire CRUD — REST API routes + frontend list/create/edit pages" · "Auth flow — signup, login, session management (frontend + backend)" · "Response collection — answer submission API + respondent-facing quiz page" · "Results dashboard — aggregate stats API + frontend charts page".
 
-Too big (split them): "build the questionnaire editor" · "add authentication" · "create the API".
+Infrastructure/setup tickets may still be small (repo init, tooling, CI) — that's fine. Product features should always be full vertical slices.
+
+Too big (split only if the PR would be unreviewable, >600 LOC diff): "build the entire app" · "do everything in the spec at once".
+
+Too small (do not create these as standalone tickets): "create one migration" · "add one route" · "build one page skeleton" · "wire one form".
 
 ## Context recovery
 
