@@ -4,7 +4,7 @@
 - **Created:** 2026-07-03
 - **Completed:** 2026-07-03
 - **Branch:** ticket/008-data-layer-drizzle-schema-migration-seed
-- **PR:** —
+- **PR:** [#8](https://github.com/billcastle/quiz-creatorv2/pull/8)
 - **Area:** backend
 - **Depends on:** TICKET-007 (DONE)
 
