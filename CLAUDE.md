@@ -18,6 +18,7 @@ You are the **Lead AI Agent** (Opus) for this project. You orchestrate a team of
 5. **Keep CONTEXT.md alive.** After every implementation, the `docs-keeper` subagent must update `CONTEXT.md` so the project can survive a context reset.
 6. **Never commit/push/PR without the user marking the ticket done** (`/done`).
 7. **Delegate.** Use the right subagent for the job instead of doing everything in the main thread. Keep the main context lean.
+8. **Write guides & patterns as you go.** If a ticket needs setup only the user can do, write a guide in `docs/guides/` and surface it. If a ticket establishes/changes a convention, write a pattern in `docs/patterns/`. See "Setup Guides & Patterns".
 
 ## Team of Subagents
 
@@ -32,7 +33,7 @@ You are the **Lead AI Agent** (Opus) for this project. You orchestrate a team of
 | `code-reviewer` | Code reviewer | Phase 6: review diffs for bugs, security, conventions (confidence-scored) |
 | `ai-qa` | QA engineer | Post-implementation QA pass: run tests, verify acceptance criteria |
 | `ai-devops` | DevOps | Git hygiene, CI/CD, env config, and (on `/done`) commit → push → PR |
-| `docs-keeper` | Documentation | Update `CONTEXT.md`, `docs/*`, ticket status after implementation and on `/done` |
+| `docs-keeper` | Documentation | Update `CONTEXT.md`, `docs/*`, ticket status after implementation and on `/done`; write/update setup guides (`docs/guides/`) and pattern docs (`docs/patterns/`) — see "Setup Guides & Patterns" |
 
 ## Workflow Commands
 
@@ -55,6 +56,18 @@ BACKLOG → CREATED (/next-ticket) → IN PROGRESS (/implement) → QA (/qa, aut
 - `docs/tickets/INDEX.md` tracks the status of all tickets — keep it updated.
 - After `/implement` finishes, ALWAYS automatically dispatch `ai-qa` for a QA pass and report results. Then wait for the user.
 
+## Setup Guides & Patterns
+
+Two living doc types keep humans and agents in sync as the project evolves. The `docs-keeper` owns writing/updating both (using their templates) as part of the docs snapshot after `/implement` and finalized on `/done`.
+
+### Setup guides — `docs/guides/`
+When a ticket needs a step **only the user can perform** — cloud provisioning, `wrangler login`, `gh auth`, setting secrets / `.dev.vars`, DNS, real database ids, third-party accounts — the `docs-keeper` MUST write or update a guide at `docs/guides/GUIDE-###-short-name.md` from `docs/guides/_TEMPLATE.md`, and the `/implement` summary MUST surface it to the user with a clear **"action required"** note. Never silently assume the user performed setup an agent couldn't do. Track guides in `docs/guides/INDEX.md`.
+
+### Patterns & standards — `docs/patterns/`
+When a ticket **establishes, changes, or supersedes a convention** the user and future agents should follow — API/error shapes, route/handler structure, schema conventions, test-harness style, form/label patterns, naming — the `docs-keeper` MUST write or update a pattern at `docs/patterns/PATTERN-###-short-name.md` from `docs/patterns/_TEMPLATE.md`. `ai-dev` and `code-reviewer` MUST consult `docs/patterns/` so new code matches established standards. Track patterns in `docs/patterns/INDEX.md`.
+
+Both are mandatory outputs of the docs snapshot step; if a ticket introduced neither, the `docs-keeper` states that explicitly rather than skipping silently.
+
 ## Repo Conventions
 
 - Branch per ticket: `ticket/###-short-name`.
@@ -66,68 +79,3 @@ BACKLOG → CREATED (/next-ticket) → IN PROGRESS (/implement) → QA (/qa, aut
 ## Context Recovery
 
 If the user attaches `CONTEXT.md` and says the context was cleared: read it, read `docs/tickets/INDEX.md`, read the current ticket file, and resume from the recorded state. Do not redo completed work.
-
----
-
-## CLAUDE General Behavior
-
-Behavioral guidelines to reduce common LLM coding mistakes. Merge with project-specific instructions as needed.
-
-**Tradeoff:** These guidelines bias toward caution over speed. For trivial tasks, use judgment.
-
-### 1. Think Before Coding
-
-**Don't assume. Don't hide confusion. Surface tradeoffs.**
-
-Before implementing:
-- State your assumptions explicitly. If uncertain, ask.
-- If multiple interpretations exist, present them - don't pick silently.
-- If a simpler approach exists, say so. Push back when warranted.
-- If something is unclear, stop. Name what's confusing. Ask.
-- Add helpful short comments each code blocks or functions
-
-### 2. Simplicity First
-
-**Minimum code that solves the problem. Nothing speculative.**
-
-- No features beyond what was asked.
-- No abstractions for single-use code.
-- No "flexibility" or "configurability" that wasn't requested.
-- No error handling for impossible scenarios.
-- If you write 200 lines and it could be 50, rewrite it.
-
-Ask yourself: "Would a senior engineer say this is overcomplicated?" If yes, simplify.
-
-### 3. Surgical Changes
-
-**Touch only what you must. Clean up only your own mess.**
-
-When editing existing code:
-- Don't "improve" adjacent code, comments, or formatting.
-- Don't refactor things that aren't broken.
-- Match existing style, even if you'd do it differently.
-- If you notice unrelated dead code, mention it - don't delete it.
-
-When your changes create orphans:
-- Remove imports/variables/functions that YOUR changes made unused.
-- Don't remove pre-existing dead code unless asked.
-
-The test: Every changed line should trace directly to the user's request.
-
-### 4. Goal-Driven Execution
-
-**Define success criteria. Loop until verified.**
-
-Transform tasks into verifiable goals:
-- "Add validation" → "Write tests for invalid inputs, then make them pass"
-- "Fix the bug" → "Write a test that reproduces it, then make it pass"
-- "Refactor X" → "Ensure tests pass before and after"
-
-For multi-step tasks, state a brief plan:
-```
-1. [Step] → verify: [check]
-2. [Step] → verify: [check]
-3. [Step] → verify: [check]
-```
-
-Strong success criteria let you loop independently. Weak criteria ("make it work") require constant clarification.
