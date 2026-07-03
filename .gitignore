@@ -15,6 +15,9 @@ coverage/
 # Vite build cache / output
 .vite/
 
+# Tanstack Router generated route tree (codegen output, not hand-authored)
+routeTree.gen.ts
+
 # Cloudflare Wrangler local state & secrets
 .wrangler/
 .dev.vars

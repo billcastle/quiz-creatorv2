@@ -2,7 +2,15 @@
 
 > Status: **LIVING PLAN.** Derived from `docs/SPEC.md` (what/why) and `docs/ARCHITECTURE.md` (how), with decisions of record in `docs/DECISIONS.md` (ADR-001..011).
 > This roadmap lists **prospective, ticket-sized steps** per phase. It does **not** assign ticket IDs and does **not** create tickets. Tickets are created **one at a time** via `/next-ticket` (CLAUDE.md Golden Rule 1).
-> Last updated: 2026-07-02.
+> Last updated: 2026-07-03.
+
+---
+
+## Reordering note (2026-07-03) — frontend foundation pulled earlier
+
+**Pivot:** TICKET-003 was re-scoped from the *backend Worker skeleton* to the **frontend foundation** (Phase 12 base work: Vite + React + Tailwind + shadcn + light/dark theming + Inter + a minimal Tanstack Router shell). This is done ahead of the default backend-first order (ARCHITECTURE §10) to unblock the **`/design-system` page + component showcase** as the next ticket.
+
+**Consequence:** the **backend Worker skeleton** (original TICKET-003 draft: Hono `index.ts` + `GET /api/health` + minimal `wrangler.toml` + backend tsconfig upgrade — the first small step of **Phase 1** below) is **DEFERRED** and will be re-created as its own later ticket via `/next-ticket`. Its scope is preserved in Phase 1's first checklist item (Wrangler/Hono init) and the health-route + Vitest-harness items. Phases and their hard dependencies are otherwise unchanged; only the *creation order* of the next few tickets shifts to interleave FE foundation with the backend base.
 
 ---
 

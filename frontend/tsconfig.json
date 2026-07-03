@@ -1,7 +1,23 @@
 {
   "extends": "../tsconfig.base.json",
-  // "files": [] makes tsc --noEmit exit 0 on the empty workspace (no "No inputs were found"
-  // error). "include" activates real type-checking of src/**/* the moment source files exist.
-  "files": [],
-  "include": ["src/**/*.ts", "src/**/*.tsx"]
+  "compilerOptions": {
+    // React + DOM app config. Base strict flags (strict, noUncheckedIndexedAccess,
+    // exactOptionalPropertyTypes, verbatimModuleSyntax, ...) are inherited unchanged.
+    "jsx": "react-jsx",
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
+    // "node" is needed for the Vite/Vitest config files (node:path, import.meta.dirname).
+    "types": ["vite/client", "node"],
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  // Real source now exists, so the TICKET-002 "files": [] empty-workspace guard is
+  // removed. Config files are type-checked too (they use node APIs).
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "vite.config.ts",
+    "vitest.config.ts"
+  ]
 }

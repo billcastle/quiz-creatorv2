@@ -11,15 +11,15 @@ Monorepo: `frontend/`, `backend/`, `shared/` (FE + BE deployed separately, same 
 
 ## 2. Current status
 
-- **Phase:** Phase 0 — foundations. Monorepo skeleton exists (npm workspaces: `frontend`, `backend`, `shared`; Node 22 pinned; hygiene files). Phase 0 tooling now complete: strict TS base config + Biome + real root scripts.
+- **Phase:** Phase 0 done (monorepo skeleton + strict TS base config + Biome + root scripts). **PIVOT:** frontend foundation pulled earlier than the backend-first roadmap so the `/design-system` page can be built next; the **backend Worker skeleton is DEFERRED** (to be re-created via `/next-ticket` later).
 - **Current ticket:** none in progress — awaiting `/next-ticket`.
-- **Last completed ticket:** TICKET-002 (Shared tooling: strict TS base config + Biome + real root scripts) — **DONE 2026-07-02**.
-- **Current branch:** ticket/002-shared-tooling-tsconfig-biome.
-- **Git note:** commit/push/PR handled by `ai-devops` as part of THIS `/done` (in progress now).
+- **Last completed ticket:** TICKET-003 (Frontend foundation) — **DONE 2026-07-03**.
+- **Current branch:** ticket/003-frontend-foundation (commit/push/PR by `ai-devops` now).
+- **Git note:** `ai-devops` is committing/pushing/opening the PR for TICKET-003 as part of `/done`.
 
 ## 3. Tech stack (confirmed at intake)
 
-- **Frontend:** Vite + React + TypeScript SPA on Cloudflare Pages (`app.<domain>`). Tanstack Router + Tanstack Query, Tanstack Form. Zustand for UI/theme/builder/quiz-taking state. Tailwind + shadcn/ui, base font Inter. tiptap editor (character-count, filehandler, color).
+- **Frontend:** Vite + React + TypeScript SPA on Cloudflare Pages (`app.<domain>`). Tanstack Router + Tanstack Query, Tanstack Form. Zustand for UI/theme/builder/quiz-taking state. Tailwind + shadcn/ui, base font Inter. tiptap editor (character-count, filehandler, color). **Foundation in place (TICKET-003):** Vite 8 + React 19, Tailwind v4 via `@tailwindcss/vite`, shadcn (`.dark` class theme mechanism), Inter via `@fontsource/inter`, Tanstack Router (file-based, generated `routeTree.gen.ts`), Vitest + RTL smoke test.
 - **Backend:** Cloudflare Worker running Hono (`api.<domain>`). REST routes validated with `@hono/zod-validator`.
 - **Database:** Cloudflare D1 (SQLite) — the ONLY datastore, app data + auth/session tables. Drizzle ORM (D1 driver).
 - **Auth:** better-auth in the Worker (Drizzle/D1 adapter) with `anonymous` + `username` plugins; parent-domain cookies.
@@ -55,12 +55,12 @@ Monorepo: `frontend/`, `backend/`, `shared/` (FE + BE deployed separately, same 
 - `docs/DECISIONS.md` — ADR-001..011.
 - `docs/ROADMAP.md` — 19 phases (0–18), ~92 prospective ticket-sized steps, backend-first.
 - `docs/WORKFLOW.md` — the per-ticket feature-dev workflow.
-- `docs/tickets/INDEX.md` — ticket status tracker (empty; no tickets yet).
+- `docs/tickets/INDEX.md` — ticket status tracker (TICKET-001..003 DONE).
 
 ## 7. Roadmap summary
 
 - **19 phases (0–18), ~92 prospective steps, backend-first.** Phase order: foundations → backend base → data layer → auth/merge → uploads/sanitize → CRUD/draft → publish/versioning → responses/auto-grade → manual grading → scale → likes/explore/profiles → admin API → FE base → shell/auth → builder → answering/results/grading UI → explore/profiles/settings/blog → admin UI → hardening/E2E/deploy.
-- **Next step (first Phase 0 item):** initialize repo root — `package.json` with `frontend`/`backend`/`shared` workspaces, `.gitignore`, `.editorconfig`, Node/PM pin.
+- **Note:** original order was backend-first; per user pivot the frontend foundation (Phase 12 base) was pulled earlier to enable design-system work. Backend Worker skeleton is deferred to a later ticket.
 
 ## 8. Still awaiting user confirmation (ARCHITECTURE §11 / SPEC OQ-1..5)
 
@@ -76,12 +76,14 @@ Baked into the roadmap as the assumed path; overturning any revises the affected
 ## 9. What's done
 
 - Intake (SPEC/ARCHITECTURE/DECISIONS/ROADMAP) is complete.
-- **TICKET-001** — monorepo root + npm workspaces (frontend/backend/shared), Node 22 pins, hygiene files. DONE 2026-07-02.
-- **TICKET-002** — strict `tsconfig.base.json` + per-workspace tsconfigs, Biome 1.9.4 (format + lint + organizeImports), TypeScript 5.9.3, real root scripts (format/lint/typecheck). DONE 2026-07-02.
+- **TICKET-001** — monorepo root + npm workspaces (frontend/backend/shared), Node 22 pins, hygiene files. DONE 2026-07-02 (PR #1).
+- **TICKET-002** — strict `tsconfig.base.json` + per-workspace tsconfigs, Biome 1.9.4 (format + lint + organizeImports), TypeScript 5.9.3, real root scripts (format/lint/typecheck). DONE 2026-07-02 (PR #2).
+- **TICKET-003** — frontend foundation (Vite 8 + React 19, Tailwind v4, shadcn init + Button, Inter via `@fontsource`, light/dark theme tokens + `.dark` mechanism, Tanstack Router file-based + AppLayout shell, Vitest+RTL smoke test). DONE 2026-07-03.
 
 ## 10. What's next
 
-- **Next: `/next-ticket` → first Phase 1 step:** backend base — Wrangler/Worker + Hono + config scaffolding (per ROADMAP Phase 1).
+- **`/next-ticket`:** build the **`/design-system` page + component showcase** — the reason for the pivot (foundation, theme mechanism, and router slot are already in place). Carry forward the review nits: anti-FOUC inline theme script (with the switcher), universal `border-color` rule to watch, Tailwind v4 `@custom-variant`/`@theme` ordering.
+- **Still pending (later ticket):** backend Worker skeleton (Wrangler/Worker + Hono + config) — deferred by the pivot, re-create via `/next-ticket`.
 - Consider confirming the §8 open items (esp. domains, scale default, shared-package reading) as later phases approach.
 
 ## 11. Gotchas / things the agent must remember
