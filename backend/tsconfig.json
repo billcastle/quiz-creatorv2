@@ -1,7 +1,8 @@
 {
   "extends": "../tsconfig.base.json",
-  // "files": [] makes tsc --noEmit exit 0 on the empty workspace (no "No inputs were found"
-  // error). "include" activates real type-checking of src/**/* the moment source files exist.
-  "files": [],
-  "include": ["src/**/*.ts"]
+  "compilerOptions": {
+    "types": ["@cloudflare/workers-types"],
+    "lib": ["ESNext"]
+  },
+  "include": ["src/**/*.ts", "test/**/*.ts"]
 }
