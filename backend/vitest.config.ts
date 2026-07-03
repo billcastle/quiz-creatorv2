@@ -1,11 +1,19 @@
-// Vitest config for the backend, running tests inside workerd via
-// @cloudflare/vitest-pool-workers (miniflare) so routes exercise the real
-// Workers runtime (ARCHITECTURE §1.3, NFR-10). The cloudflareTest plugin wires
-// the workers pool itself and reuses wrangler.toml for main + compat settings.
-// No D1/R2 bindings configured this phase.
-import { cloudflareTest } from "@cloudflare/vitest-pool-workers";
+// Vitest config: Cloudflare Workers pool (workerd). Reads D1 migrations in
+// Node and injects them as a JSON binding so the setup file can apply them.
+import {
+  cloudflareTest,
+  readD1Migrations,
+} from "@cloudflare/vitest-pool-workers";
 import { defineConfig } from "vitest/config";
 
+const migrations = await readD1Migrations("./migrations");
+
 export default defineConfig({
-  plugins: [cloudflareTest({ wrangler: { configPath: "./wrangler.toml" } })],
+  plugins: [
+    cloudflareTest({
+      wrangler: { configPath: "./wrangler.toml" },
+      miniflare: { bindings: { TEST_MIGRATIONS: migrations } },
+    }),
+  ],
+  test: { setupFiles: ["./test/apply-migrations.ts"] },
 });

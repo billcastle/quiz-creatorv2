@@ -2,3 +2,21 @@ name = "quiz-creator-api"
 main = "src/index.ts"
 compatibility_date = "2026-07-01"
 compatibility_flags = ["nodejs_compat"]
+
+[[d1_databases]]
+binding = "DB"
+database_name = "quiz-creator-api"
+database_id = "local-placeholder-0000"
+migrations_dir = "migrations"
+
+[env.preview]
+[[env.preview.d1_databases]]
+binding = "DB"
+database_name = "quiz-creator-api-preview"
+database_id = "preview-placeholder-0000"
+
+[env.production]
+[[env.production.d1_databases]]
+binding = "DB"
+database_name = "quiz-creator-api-prod"
+database_id = "prod-placeholder-0000"
