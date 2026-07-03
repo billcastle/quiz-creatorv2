@@ -13,13 +13,12 @@ Monorepo: `frontend/`, `backend/`, `shared/` (FE + BE deployed separately, same 
 
 - **Phase:** Phase 0 done (monorepo skeleton + strict TS base config + Biome + root scripts). **PIVOT:** frontend foundation pulled earlier than the backend-first roadmap so the `/design-system` page can be built next; the **backend Worker skeleton is DEFERRED** (to be re-created via `/next-ticket` later).
 - **Current ticket:** none in progress — awaiting `/next-ticket`.
-- **Last completed ticket:** TICKET-003 (Frontend foundation) — **DONE 2026-07-03**.
-- **Current branch:** ticket/003-frontend-foundation (commit/push/PR by `ai-devops` now).
-- **Git note:** `ai-devops` is committing/pushing/opening the PR for TICKET-003 as part of `/done`.
+- **Last completed ticket:** TICKET-004 (design-system page) — **DONE 2026-07-03**.
+- **Current branch:** ticket/004-design-system-page — commit/push/PR by `ai-devops` now.
 
 ## 3. Tech stack (confirmed at intake)
 
-- **Frontend:** Vite + React + TypeScript SPA on Cloudflare Pages (`app.<domain>`). Tanstack Router + Tanstack Query, Tanstack Form. Zustand for UI/theme/builder/quiz-taking state. Tailwind + shadcn/ui, base font Inter. tiptap editor (character-count, filehandler, color). **Foundation in place (TICKET-003):** Vite 8 + React 19, Tailwind v4 via `@tailwindcss/vite`, shadcn (`.dark` class theme mechanism), Inter via `@fontsource/inter`, Tanstack Router (file-based, generated `routeTree.gen.ts`), Vitest + RTL smoke test.
+- **Frontend:** Vite + React + TypeScript SPA on Cloudflare Pages (`app.<domain>`). Tanstack Router + Tanstack Query, Tanstack Form. Zustand for UI/theme/builder/quiz-taking state. Tailwind + shadcn/ui, base font Inter. tiptap editor (character-count, filehandler, color). **Foundation in place (TICKET-003):** Vite 8 + React 19, Tailwind v4 via `@tailwindcss/vite`, shadcn (`.dark` class theme mechanism), Inter via `@fontsource/inter`, Tanstack Router (file-based, generated `routeTree.gen.ts`), Vitest + RTL smoke test. **Design system exists (TICKET-004, awaiting approval):** `/design-system` route with Colors / Typography / Components sections (12 shadcn primitives: Button, Input, Label, Textarea, Select, Checkbox, RadioGroup, Switch, Card, Tabs, Badge, Separator), an in-page theme-toggle demo, and an anti-FOUC inline script in `index.html`; `lucide-react` added for icons.
 - **Backend:** Cloudflare Worker running Hono (`api.<domain>`). REST routes validated with `@hono/zod-validator`.
 - **Database:** Cloudflare D1 (SQLite) — the ONLY datastore, app data + auth/session tables. Drizzle ORM (D1 driver).
 - **Auth:** better-auth in the Worker (Drizzle/D1 adapter) with `anonymous` + `username` plugins; parent-domain cookies.
@@ -55,7 +54,7 @@ Monorepo: `frontend/`, `backend/`, `shared/` (FE + BE deployed separately, same 
 - `docs/DECISIONS.md` — ADR-001..011.
 - `docs/ROADMAP.md` — 19 phases (0–18), ~92 prospective ticket-sized steps, backend-first.
 - `docs/WORKFLOW.md` — the per-ticket feature-dev workflow.
-- `docs/tickets/INDEX.md` — ticket status tracker (TICKET-001..003 DONE).
+- `docs/tickets/INDEX.md` — ticket status tracker (TICKET-001..004 DONE).
 
 ## 7. Roadmap summary
 
@@ -78,12 +77,16 @@ Baked into the roadmap as the assumed path; overturning any revises the affected
 - Intake (SPEC/ARCHITECTURE/DECISIONS/ROADMAP) is complete.
 - **TICKET-001** — monorepo root + npm workspaces (frontend/backend/shared), Node 22 pins, hygiene files. DONE 2026-07-02 (PR #1).
 - **TICKET-002** — strict `tsconfig.base.json` + per-workspace tsconfigs, Biome 1.9.4 (format + lint + organizeImports), TypeScript 5.9.3, real root scripts (format/lint/typecheck). DONE 2026-07-02 (PR #2).
-- **TICKET-003** — frontend foundation (Vite 8 + React 19, Tailwind v4, shadcn init + Button, Inter via `@fontsource`, light/dark theme tokens + `.dark` mechanism, Tanstack Router file-based + AppLayout shell, Vitest+RTL smoke test). DONE 2026-07-03.
+- **TICKET-003** — frontend foundation (Vite 8 + React 19, Tailwind v4, shadcn init + Button, Inter via `@fontsource`, light/dark theme tokens + `.dark` mechanism, Tanstack Router file-based + AppLayout shell, Vitest+RTL smoke test). DONE 2026-07-03 (PR #3).
+- **TICKET-004** — design-system page (`/design-system`): Colors / Typography / Components (12 shadcn primitives), in-page theme toggle, anti-FOUC script, lucide-react icons; RadioGroup + Checkbox multi-select styled as answer cards (questionnaire answer-option pattern). DONE 2026-07-03.
 
 ## 10. What's next
 
-- **`/next-ticket`:** build the **`/design-system` page + component showcase** — the reason for the pivot (foundation, theme mechanism, and router slot are already in place). Carry forward the review nits: anti-FOUC inline theme script (with the switcher), universal `border-color` rule to watch, Tailwind v4 `@custom-variant`/`@theme` ordering.
-- **Still pending (later ticket):** backend Worker skeleton (Wrangler/Worker + Hono + config) — deferred by the pivot, re-create via `/next-ticket`.
+- **`/next-ticket`** — candidate next steps (keep all three open):
+  1. **FE-shell/header ticket** — sidebar/header shell + persistent FR-39 theme switcher + custom-theme dropdown + `_app`/`_bare` layout split.
+  2. **Design-system batch 2** — deferred overlay/portal primitives (Dialog, Tooltip, DropdownMenu, Popover, Sheet, Toast, Slider, Progress, Accordion, Avatar, Command, Table, Skeleton).
+  3. **Backend Worker skeleton** (Wrangler/Worker + Hono + config) — deferred by the pivot.
+- **Open follow-up:** decide the canonical form-field label association pattern (nesting vs `htmlFor`+`id`) before builder/forms tickets copy it (two styles currently coexist on the showcase page).
 - Consider confirming the §8 open items (esp. domains, scale default, shared-package reading) as later phases approach.
 
 ## 11. Gotchas / things the agent must remember
