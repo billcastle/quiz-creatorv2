@@ -4,6 +4,7 @@
 - **Created:** 2026-07-03
 - **Completed:** 2026-07-03
 - **Branch:** ticket/005-app-shell
+- **PR:** https://github.com/billcastle/quiz-creatorv2/pull/5
 - **Area:** frontend
 - **Depends on:** TICKET-004 (DONE — design system page + first-batch shadcn primitives [Button, Input, Label, Textarea, Select, Checkbox, RadioGroup, Switch, Card, Tabs, Badge, Separator], in-page theme demo toggle, anti-FOUC inline script in `index.html`). Transitively TICKET-003 (DONE — Vite 8 + React 19, Tailwind v4, shadcn init, Inter, `lib/theme.ts` `.dark` + `qc-theme`, Tanstack Router file-based with `routeTree.gen.ts`, Vitest + RTL, `lucide-react` present).
 
