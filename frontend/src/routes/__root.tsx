@@ -1,14 +1,16 @@
-import { AppLayout } from "@/components/layout/AppLayout";
-import { createRootRoute } from "@tanstack/react-router";
+import { Outlet, createRootRoute } from "@tanstack/react-router";
+import type { ReactElement } from "react";
 
 /**
- * Root route. Renders the minimal AppLayout shell for every route.
- *
- * Future routes are added as sibling files in src/routes/ (file-based codegen
- * regenerates routeTree.gen.ts). The `/design-system` gallery ticket adds a
- * `design-system.tsx` here next; auth/answering routes will introduce the
- * `_app` / `_bare` layout groups per ARCHITECTURE §7.2.
+ * Pass-through root route (TICKET-005). It renders ONLY <Outlet /> plus any
+ * future app-global providers — the layout choice now lives one level down in
+ * the pathless `_app` (AppLayout: sidebar + header) and `_bare` (BareLayout:
+ * chrome-free) layout routes per ARCHITECTURE §7.1 / §7.2.
  */
 export const Route = createRootRoute({
-  component: AppLayout,
+  component: RootComponent,
 });
+
+function RootComponent(): ReactElement {
+  return <Outlet />;
+}

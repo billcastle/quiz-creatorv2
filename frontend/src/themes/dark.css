@@ -1,25 +1,28 @@
 /*
  * Dark theme — ADR-010 token file. Applied by toggling the `.dark` class on
  * <html> (shadcn mechanism, reconciled with ADR-010's "data-theme/class").
+ *
+ * Slate palette (hue ~222): lifted off near-black so surfaces read, with
+ * high-contrast border/input tokens so radio/checkbox controls stay visible.
  */
 .dark {
-  --background: hsl(240 10% 3.9%);
-  --foreground: hsl(0 0% 98%);
-  --card: hsl(240 10% 3.9%);
-  --card-foreground: hsl(0 0% 98%);
-  --popover: hsl(240 10% 3.9%);
-  --popover-foreground: hsl(0 0% 98%);
-  --primary: hsl(0 0% 98%);
-  --primary-foreground: hsl(240 5.9% 10%);
-  --secondary: hsl(240 3.7% 15.9%);
-  --secondary-foreground: hsl(0 0% 98%);
-  --muted: hsl(240 3.7% 15.9%);
-  --muted-foreground: hsl(240 5% 64.9%);
-  --accent: hsl(240 3.7% 15.9%);
-  --accent-foreground: hsl(0 0% 98%);
-  --destructive: hsl(0 62.8% 30.6%);
-  --destructive-foreground: hsl(0 0% 98%);
-  --border: hsl(240 3.7% 15.9%);
-  --input: hsl(240 3.7% 15.9%);
-  --ring: hsl(240 4.9% 83.9%);
+  --background: hsl(222 18% 11%);
+  --foreground: hsl(210 20% 98%);
+  --card: hsl(222 16% 14%);
+  --card-foreground: hsl(210 20% 98%);
+  --popover: hsl(222 16% 14%);
+  --popover-foreground: hsl(210 20% 98%);
+  --primary: hsl(210 20% 98%);
+  --primary-foreground: hsl(222 47% 11%);
+  --secondary: hsl(222 14% 20%);
+  --secondary-foreground: hsl(210 20% 98%);
+  --muted: hsl(222 14% 20%);
+  --muted-foreground: hsl(218 12% 68%);
+  --accent: hsl(222 14% 24%);
+  --accent-foreground: hsl(210 20% 98%);
+  --destructive: hsl(0 62% 46%);
+  --destructive-foreground: hsl(210 20% 98%);
+  --border: hsl(220 13% 32%);
+  --input: hsl(220 13% 36%);
+  --ring: hsl(216 14% 72%);
 }
